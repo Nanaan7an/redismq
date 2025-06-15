@@ -18,6 +18,15 @@ import java.util.Map;
  */
 @Component
 public class RedisStreamUtils {
+    /**
+     * 补充一下术语，不同技术栈中有类似的作用：
+     * Redis Stream = sofa MQ
+     * 消息队列stream = group GID_XX
+     * 消费者组group = topic
+     * 消费者consumer = 监听者listener
+     * （用sofa术语）一类相似的功能，通常创建一个group；根据topic去细分不同的业务处理方式；一般对于一个topic，也只创建一个监听者
+     */
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
