@@ -1,4 +1,4 @@
-package com.redismq.redismq.redis.dataredis.config;
+package dataredis.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;

@@ -1,7 +1,7 @@
-package com.redismq.redismq.redis.dataredis.controller;
+package dataredis.controller;
 
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
-import com.redismq.redismq.redis.dataredis.config.SingleMqProperties;
+import dataredis.config.SingleMqProperties;
+import dataredis.common.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

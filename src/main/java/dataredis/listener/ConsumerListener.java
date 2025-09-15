@@ -1,10 +1,7 @@
-package com.redismq.redismq.redis.dataredis.listener;
+package dataredis.listener;
 
 import cn.hutool.core.date.DateTime;
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
-import com.redismq.redismq.redis.dataredis.config.SingleMqProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.stream.MapRecord;
 import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.stream.StreamListener;
@@ -18,13 +15,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 public class ConsumerListener implements StreamListener<String, MapRecord<String, String, String>> {
-
-    @Autowired
-    SingleMqProperties singleMqProperties;
-
-    @Autowired
-    RedisStreamUtils redisStreamUtils;
-
     /**
      * 定义了接收到消息后的操作
      *
@@ -44,11 +34,5 @@ public class ConsumerListener implements StreamListener<String, MapRecord<String
          */
         RecordId recordId = entries.getId();
         log.info("本次监听到的消息的ID是【{}】", recordId);
-
-        //消费消息
-        redisStreamUtils.readMag(
-                singleMqProperties.getStreamName(),
-                singleMqProperties.getGroupName(),
-                singleMqProperties.getConsumerName());
     }
 }

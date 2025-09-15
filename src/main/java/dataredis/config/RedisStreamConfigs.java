@@ -1,7 +1,7 @@
-package com.redismq.redismq.redis.dataredis.config;
+package dataredis.config;
 
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
-import com.redismq.redismq.redis.dataredis.listener.ConsumerListener;
+import dataredis.common.util.RedisStreamUtils;
+import dataredis.listener.ConsumerListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

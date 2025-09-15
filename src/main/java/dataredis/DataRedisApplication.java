@@ -1,13 +1,13 @@
-package com.redismq.redismq;
+package dataredis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RedismqApplication {
+public class DataRedisApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RedismqApplication.class, args);
+		SpringApplication.run(DataRedisApplication.class, args);
 	}
 
 }
