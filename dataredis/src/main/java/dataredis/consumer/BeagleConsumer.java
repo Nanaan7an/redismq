@@ -1,7 +1,7 @@
-package com.redismq.redismq.redis.dataredis.beagle.consumer;
+package dataredis.consumer;
 
-import com.redismq.redismq.redis.dataredis.beagle.config.BeaglProperties;
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
+import dataredis.config.BeaglProperties;
+import dataredis.common.util.RedisStreamUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.stream.MapRecord;

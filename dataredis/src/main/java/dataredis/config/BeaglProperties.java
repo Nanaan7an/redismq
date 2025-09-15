@@ -1,4 +1,4 @@
-package com.redismq.redismq.redis.dataredis.beagle.config;
+package dataredis.config;
 
 
 import lombok.Data;

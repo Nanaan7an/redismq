@@ -26,7 +26,7 @@
 
     <modules>
         <module>redisson</module>
-        <module>data-redis</module>
+        <module>dataredis</module>
     </modules>
 
     <!--
