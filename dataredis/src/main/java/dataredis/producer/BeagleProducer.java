@@ -1,7 +1,7 @@
 package dataredis.producer;
 
+import dataredis.common.util.RedisStreamUtils;
 import dataredis.config.BeaglProperties;
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

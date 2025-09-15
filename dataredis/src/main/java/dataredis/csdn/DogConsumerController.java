@@ -1,11 +1,11 @@
 package dataredis.csdn;
 
+import dataredis.common.util.RedisStreamUtils;
 import dataredis.csdn.consumercsdn.Dog;
 import dataredis.csdn.consumercsdn.RedisConsumer;
 import dataredis.csdn.consumercsdn.RedisMsg;
 import dataredis.csdn.consumercsdn.RedisStream;
 import dataredis.csdn.util.RedisStreamUtil;
-import dataredis.common.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,8 +1,9 @@
 package dataredis.csdn;
-import dataredis.csdn.util.RedisStreamUtil;
+
 import dataredis.csdn.consumercsdn.RedisConsumer;
 import dataredis.csdn.consumercsdn.RedisMsg;
 import dataredis.csdn.consumercsdn.RedisStream;
+import dataredis.csdn.util.RedisStreamUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.demo.config.redis.redisson.common;
+package redisson.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RStream;

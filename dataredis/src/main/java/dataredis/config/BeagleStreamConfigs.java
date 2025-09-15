@@ -1,7 +1,7 @@
 package dataredis.config;
 
-import dataredis.consumer.BeagleConsumer;
 import dataredis.common.util.RedisStreamUtils;
+import dataredis.consumer.BeagleConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

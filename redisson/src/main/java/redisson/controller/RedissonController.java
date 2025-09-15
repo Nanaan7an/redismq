@@ -1,9 +1,9 @@
 package redisson.controller;
 
-import com.example.demo.config.redis.redisson.common.RedissonStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import redisson.common.RedissonStreamUtils;
 
 import java.util.HashMap;
 import java.util.Map;
