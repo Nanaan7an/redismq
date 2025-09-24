@@ -1,0 +1,25 @@
+#Redis
+spring:
+  #允许循环依赖
+  main:
+    #    allow-circular-references: true
+    allow-bean-definition-overriding: true
+#redisson
+redisson:
+  singleServerConfig:
+    address: "redis://127.0.0.1:6379"
+    password: Admin@123
+    database: 0
+server:
+  port: 8080
+redis:
+  stream:
+    enable: false
+    configs:
+      - stream-name: dogs
+        group-name: dogGroup
+        consumer-name: dogConsumer
+      - stream-name: cat
+        group-name: testcat
+        consumer-name: cat
+
