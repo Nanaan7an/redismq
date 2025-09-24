@@ -9,16 +9,26 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.redismq</groupId>
-    <artifactId>redismq</artifactId>
+    <artifactId>redisMQ</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>redismq</name>
-    <description>redismq</description>
+    <packaging>pom</packaging>
+    <name>redisMQ</name>
+    <description>redisMQ</description>
     <url/>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
+    <modules>
+        <module>dataredis</module>
+        <module>redisson</module>
+    </modules>
+
+    <!--
+    依赖继承：
+    管理所有子模块都需要用到的依赖，子模块中无需再次引入即可使用。
+    -->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -50,18 +60,26 @@
             <version>2.0.40</version>
         </dependency>
 
-        <!--redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>2.4.5</version>
-        </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.redisson</groupId>-->
-<!--            <artifactId>redisson-spring-boot-starter</artifactId>-->
-<!--            <version>3.39.0</version>-->
-<!--        </dependency>-->
     </dependencies>
+
+    <!--
+    依赖（版本）管理：
+    一次性管理所有子模块用到的依赖，并未直接引入到子模块中，在子模块中按需声明，但无需声明<version>。
+    -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>2.4.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>3.39.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
