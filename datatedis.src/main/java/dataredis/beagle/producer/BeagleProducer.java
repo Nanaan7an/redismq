@@ -1,7 +1,7 @@
-package com.redismq.redismq.redis.dataredis.beagle.producer;
+package dataredis.beagle.producer;
 
-import com.redismq.redismq.redis.dataredis.beagle.config.BeaglProperties;
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
+import dataredis.beagle.config.BeaglProperties;
+import dataredis.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,0 +1,24 @@
+#Redis
+spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: Admin@123
+    database: 0
+  #允许循环依赖
+  main:
+    #    allow-circular-references: true
+    allow-bean-definition-overriding: true
+server:
+  port: 8080
+redis:
+  stream:
+    enable: false
+    configs:
+      - stream-name: dogs
+        group-name: dogGroup
+        consumer-name: dogConsumer
+      - stream-name: cat
+        group-name: testcat
+        consumer-name: cat
+

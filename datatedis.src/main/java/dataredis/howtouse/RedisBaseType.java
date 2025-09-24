@@ -1,4 +1,4 @@
-package com.redismq.redismq.redis.howtouse;
+package dataredis.howtouse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;

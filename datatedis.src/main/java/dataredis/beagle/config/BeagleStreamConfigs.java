@@ -1,7 +1,7 @@
-package com.redismq.redismq.redis.dataredis.beagle.config;
+package dataredis.beagle.config;
 
-import com.redismq.redismq.redis.dataredis.beagle.consumer.BeagleConsumer;
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
+import dataredis.beagle.consumer.BeagleConsumer;
+import dataredis.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

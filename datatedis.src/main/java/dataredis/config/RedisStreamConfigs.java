@@ -1,7 +1,7 @@
-package com.redismq.redismq.redis.dataredis.config;
+package dataredis.config;
 
-import com.redismq.redismq.redis.dataredis.common.util.RedisStreamUtils;
-import com.redismq.redismq.redis.dataredis.listener.ConsumerListener;
+import dataredis.util.RedisStreamUtils;
+import dataredis.listener.ConsumerListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +39,7 @@ public class RedisStreamConfigs {
      * @return
      */
     @Bean
-    public StreamMessageListenerContainer<String, MapRecord<String, String, String>> streamMsgListenerContainer() {
+    public StreamMessageListenerContainer<String, MapRecord<String, String, String>> streamMsgListenerContainerBase() {
 
         //StreamMessageListenerContainerOptions：用于配置监听容器的选项，定义监听器的行为
         StreamMessageListenerContainer.StreamMessageListenerContainerOptions<String, MapRecord<String, String, String>> options =
