@@ -34,3 +34,17 @@
 2. 将本机访问保护模式改为no》protected-mode no
 3. 修改密码》requirepass  Admin@123
 4. 修改日志目录，默认为根目录下的路径，需要手动建文件夹，否则启动时会报找不到路径》
+
+## 访问远程redis
+1. 在命令行cmd中cd到redis的目录/或者直接在redis目录中，在文件路径框中输入cmd
+2. 连接远程redis
+   </br>`redis-cli -h [ip:redis服务器IP] -p [port:一般默认为6379]`
+   </br>出现【ip:端口】表示已经连接到服务器
+3. 登录redis
+   </br>`auth redis密码`
+   </br>出现【OK】表示成功
+4. 验证连通性
+   </br>`ping`
+   </br>出现【PONG】表示成功
+
+
