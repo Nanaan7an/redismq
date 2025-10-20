@@ -1,6 +1,8 @@
 package dataredis.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.RedisSystemException;
 import org.springframework.data.redis.connection.stream.*;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,7 @@ import java.util.Map;
  * 该类主要封装RedisTemplate.opsForStream()相关的方法，用于操作Stream(Redis提供的一种用于消息处理的高级数据结构)
  */
 @Component
+@Slf4j
 public class RedisStreamUtils {
     /**
      * 补充一下术语，不同技术栈中有类似的作用：
@@ -56,17 +59,20 @@ public class RedisStreamUtils {
      * @param group     消费者组的名称
      */
     public void getGroup(String streamKey, String group) {
-        //查询当前存在的消费者组
-        StreamInfo.XInfoGroups xinfoGroups = redisTemplate.opsForStream().groups(streamKey);
-
-        List<String> groups = new ArrayList<>();
-        for (int i = 0; i < xinfoGroups.groupCount(); i++) {
-            groups.add(xinfoGroups.get(i).groupName());
-        }
-
-        //不存在时则创建
-        if (!groups.contains(group)) {
+        StreamInfo.XInfoGroups xinfoGroups = null;
+        try {
+            //查询当前存在的消费者组
+            xinfoGroups = redisTemplate.opsForStream().groups(streamKey);
+        } catch (RedisSystemException e) {
+            //不存在时则创建
+            log.info("",e.getCause());
             redisTemplate.opsForStream().createGroup(streamKey, group);
+        }finally {
+            List<String> groups = new ArrayList<>();
+            for (int i = 0; i < xinfoGroups.groupCount(); i++) {
+                groups.add(xinfoGroups.get(i).groupName());
+            }
+            log.info("redis stream >>>{}",groups);
         }
     }
 
