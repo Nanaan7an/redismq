@@ -20,23 +20,15 @@ import java.util.Map;
 @Component
 @Slf4j
 public class RedisStreamUtils {
-    /**
-     * 补充一下术语，不同技术栈中有类似的作用：
-     * Redis Stream = sofa MQ
-     * 消息队列stream = group GID_XX
-     * 消费者组group = topic
-     * 消费者consumer = 监听者listener
-     * （用sofa术语）一类相似的功能，通常创建一个group；根据topic去细分不同的业务处理方式；一般对于一个topic，也只创建一个监听者
-     */
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
 
     /**
-     * (不存在消息队列时)创建消息队列，并向消息队列中写入消息
+     * (不存在消息队列时创建消息队列，并)向消息队列中写入消息
      * 功能与该命令一致》XADD streamKey * MapKey MapValue
-     * 在执行该方法前、后分别执行，查看创建的信息》xrange streamKey - +
+     * 在执行该方法前、后分别执行，查看创建的信息》XRANGE streamKey - +
      *
      * @param streamKey 消息队列的键
      * @param msg       消息
@@ -53,7 +45,8 @@ public class RedisStreamUtils {
 
     /**
      * (不存在时)创建或(存在时)获取消息队列的消费者组
-     * 在执行该方法前、后分别执行，查询消息队列的信息》XINFO GROUPS streamKey
+     * 》XGROUP CREATE streamKey group 0
+     * 在执行该方法前、后分别执行，查询消息队列的流以及消费者组的信息》XINFO GROUPS streamKey
      *
      * @param streamKey 消息队列的键
      * @param group     消费者组的名称
@@ -61,23 +54,23 @@ public class RedisStreamUtils {
     public void getGroup(String streamKey, String group) {
         StreamInfo.XInfoGroups xinfoGroups = null;
         try {
-            //查询当前存在的消费者组
+            //查询指定消息队列当前所有的消费者组
             xinfoGroups = redisTemplate.opsForStream().groups(streamKey);
         } catch (RedisSystemException e) {
-            //不存在时则创建
-            log.info("",e.getCause());
+            //当不存在任何消费者时则创建指定的消费者
+            log.info("Redis Stream [{}] without any consumer,create group named [{}]", streamKey, group);
             redisTemplate.opsForStream().createGroup(streamKey, group);
-        }finally {
+        } finally {
             List<String> groups = new ArrayList<>();
             for (int i = 0; i < xinfoGroups.groupCount(); i++) {
                 groups.add(xinfoGroups.get(i).groupName());
             }
-            log.info("redis stream >>>{}",groups);
+            log.info("Redis Stream >>>{}", groups);
         }
     }
 
     /**
-     * 在消费者组group中，读取消息，且(不存在时)创建或(存在时)获取消费者
+     * 读取消费者组group中的消息，且(不存在时)创建或(存在时)获取消费者
      * 类似于》XREADGROUP GROUP groupKey consumerKey COUNT 1 STREAMS streamKey >
      * 在执行该方法前、后，查询消费者组的信息》XINFO CONSUMERS streamKey groupKey
      *
@@ -93,6 +86,6 @@ public class RedisStreamUtils {
                 StreamReadOptions.empty().count(1),//读取1条
                 StreamOffset.create(streamKey, ReadOffset.lastConsumed())
         );
-        System.out.println("messages==" + messages);
+        System.out.println("messages=" + messages);
     }
 }
