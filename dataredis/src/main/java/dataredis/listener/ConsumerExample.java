@@ -1,8 +1,8 @@
 package dataredis.listener;
 
 import cn.hutool.core.date.DateTime;
-import dataredis.util.RedisStreamUtils;
 import dataredis.config.SingleMqProperties;
+import dataredis.util.RedisStreamUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.stream.MapRecord;
@@ -10,14 +10,16 @@ import org.springframework.data.redis.connection.stream.RecordId;
 import org.springframework.data.redis.stream.StreamListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * @Author Nanaan
  * @Date 2025/2/27 20:32
- * @Description 消费者监听器
+ * @Description 一个消费者的示例
  */
 @Slf4j
 @Component
-public class ConsumerListener implements StreamListener<String, MapRecord<String, String, String>> {
+public class ConsumerExample implements StreamListener<String, MapRecord<String, String, String>> {
 
     @Autowired
     SingleMqProperties singleMqProperties;
@@ -42,13 +44,31 @@ public class ConsumerListener implements StreamListener<String, MapRecord<String
          * 和在redis客户端中操作一样，在存在消息队列及消息的情况下，需要有消费者组及消费者存在，才可以实现消费消息；
          * 所以，应当先创建一个消费者组，并将ConsumerListener加入到这个消费者组中。
          */
+        String stream = entries.getStream();
+
         RecordId recordId = entries.getId();
-        log.info("本次监听到的消息的ID是【{}】", recordId);
+
+        Map<String, String> message = entries.getValue();
+        log.info("本次监听到的消息所属的消息队列是【{}】，ID是【{}】，消息内容是【{}】",
+                stream, recordId, message);
+
+        process(message);
 
         //消费消息
         redisStreamUtils.readMag(
                 singleMqProperties.getStreamName(),
                 singleMqProperties.getGroupName(),
                 singleMqProperties.getConsumerName());
+    }
+
+    /**
+     * 业务处理方法
+     *
+     * @param message 从队列拉取的消息
+     * @return 消息处理结果
+     */
+    private boolean process(Map<String, String> message) {
+        System.out.println(message);
+        return true;
     }
 }
