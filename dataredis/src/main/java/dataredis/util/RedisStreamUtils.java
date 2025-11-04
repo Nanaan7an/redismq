@@ -60,12 +60,12 @@ public class RedisStreamUtils {
             //当不存在任何消费者时则创建指定的消费者
             log.info("Redis Stream [{}] without any consumer,create group named [{}]", streamKey, group);
             redisTemplate.opsForStream().createGroup(streamKey, group);
-        } finally {
-            List<String> groups = new ArrayList<>();
-            for (int i = 0; i < xinfoGroups.groupCount(); i++) {
-                groups.add(xinfoGroups.get(i).groupName());
-            }
-            log.info("Redis Stream >>>{}", groups);
+//        } finally {
+//            List<String> groups = new ArrayList<>();
+//            for (int i = 0; i < xinfoGroups.groupCount(); i++) {//当redis初始状态为空时，此前并未给xinfoGroups赋值，故有空指针问题。
+//                groups.add(xinfoGroups.get(i).groupName());
+//            }
+//            log.info("Redis Stream >>>{}", groups);
         }
     }
 
