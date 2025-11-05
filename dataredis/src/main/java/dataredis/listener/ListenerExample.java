@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class ConsumerExample implements StreamListener<String, MapRecord<String, String, String>> {
+public class ListenerExample implements StreamListener<String, MapRecord<String, String, String>> {
 
     @Autowired
     SingleMqProperties singleMqProperties;

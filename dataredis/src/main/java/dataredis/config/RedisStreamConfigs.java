@@ -1,6 +1,6 @@
-package dataredis.listener;
+package dataredis.config;
 
-import dataredis.config.SingleMqProperties;
+import dataredis.listener.ListenerExample;
 import dataredis.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ import java.time.Duration;
 public class RedisStreamConfigs {
     //刚才实现的消费者
     @Autowired
-    ConsumerExample consumer;
+    ListenerExample listener;
 
     //用于创建Redis连接
     @Autowired
@@ -36,17 +36,19 @@ public class RedisStreamConfigs {
     RedisStreamUtils redisStreamUtils;
 
     /**
-     * Redis Stream中有新消息，StreamMessageListenerContainer负责获取消息，并将消息传递给消费者处理
-     * 为避免实例注册时Bean名称重复导致的应用启动失败，开发时在注解内指定Bean名称
+     * Redis Stream中有新消息，StreamMessageListenerContainer是管理和运行Redis Stream消息监听器的核心容器组件，负责拉取消息，并将消息传递给消费者处理。
+     * 此处使用了@Bean+@Configuration注册bean，由于bean名称默认为方法名，且拟在该应用中创建多个该组件，
+     * 故为避免实例注册时Bean名称重复导致的应用启动失败，此处开发时在注解内指定Bean名称。
      * @return
      */
     @Bean("listenerExample")
     public StreamMessageListenerContainer<String, MapRecord<String, String, String>> streamMsgListenerContainer() {
 
-        //StreamMessageListenerContainerOptions：用于配置监听容器的选项，定义监听器的行为
+        //StreamMessageListenerContainerOptions：容器配置选项，用于配置监听容器的选项，定义监听器的行为
         StreamMessageListenerContainer.StreamMessageListenerContainerOptions<String, MapRecord<String, String, String>> options =
                 StreamMessageListenerContainer.StreamMessageListenerContainerOptions.builder()
-                        .pollTimeout(Duration.ofSeconds(1))//必填，监听容器轮询的时间间隔，当未读取到消息时，每隔这个时间去读取一下Stream
+                        //必填，监听容器轮询的时间间隔，当未读取到消息时，每隔这个时间去读取一下Stream
+                        .pollTimeout(Duration.ofSeconds(1))
                         .build();
 
         //创建监听容器
@@ -63,8 +65,8 @@ public class RedisStreamConfigs {
         //从配置文件中读取本次需要的group
         String groupName = singleMqProperties.getGroupName();
 
-        //从消息队列指定位置（此处是开始位置）开始读取，并将消息传递给监听者；从头开始读取可能导致重复消费未ACK的消息
-        listenerContainer.receive(StreamOffset.fromStart(streamKey), consumer);
+        //指定该组件需要监听的消息队列，并从消息队列指定位置（此处是开始位置）开始读取，并将消息传递给监听者；从头开始读取可能导致重复消费未ACK的消息
+        listenerContainer.receive(StreamOffset.fromStart(streamKey), listener);
         //顺带一提，从末尾位置开始读取是这样写
 //        StreamOffset.latest(streamKey, groupName);
 
