@@ -41,7 +41,7 @@ public class RedisStreamConfigs {
      * 故为避免实例注册时Bean名称重复导致的应用启动失败，此处开发时在注解内指定Bean名称。
      * @return
      */
-    @Bean("listenerExample")
+    @Bean("listenerContainerExample")
     public StreamMessageListenerContainer<String, MapRecord<String, String, String>> streamMsgListenerContainer() {
 
         //StreamMessageListenerContainerOptions：容器配置选项，用于配置监听容器的选项，定义监听器的行为
