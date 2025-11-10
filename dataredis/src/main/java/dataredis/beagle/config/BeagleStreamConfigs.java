@@ -1,6 +1,6 @@
 package dataredis.beagle.config;
 
-import dataredis.beagle.consumer.BeagleConsumer;
+import dataredis.beagle.listener.BeagleListener;
 import dataredis.util.RedisStreamUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +21,7 @@ public class BeagleStreamConfigs {
 
     //消费者
     @Autowired
-    BeagleConsumer consumer;
+    BeagleListener consumer;
 
     @Autowired
     RedisConnectionFactory redisConnectionFactory;
@@ -37,7 +37,7 @@ public class BeagleStreamConfigs {
      *
      * @return
      */
-    @Bean
+    @Bean("listenerContainerBeagle")
     public StreamMessageListenerContainer<String, MapRecord<String, String, String>> streamMsgListenerContainer() {
 
         StreamMessageListenerContainer.StreamMessageListenerContainerOptions<String, MapRecord<String, String, String>> options =

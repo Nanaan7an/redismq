@@ -1,4 +1,4 @@
-package dataredis.beagle.consumer;
+package dataredis.beagle.listener;
 
 import dataredis.beagle.config.BeaglProperties;
 import dataredis.util.RedisStreamUtils;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class BeagleConsumer implements StreamListener<String, MapRecord<String, String, String>> {
+public class BeagleListener implements StreamListener<String, MapRecord<String, String, String>> {
 
     @Autowired
     BeaglProperties properties;
@@ -25,7 +25,7 @@ public class BeagleConsumer implements StreamListener<String, MapRecord<String, 
 
     @Override
     public void onMessage(MapRecord<String, String, String> entries) {
-        log.info("有新的小比被创造出来了！！！！！");
+        log.info("有新的小比被召唤出来了！！！！！");
 
         String name = entries.getValue().get("name");
         log.info("{}学会了wer", name);

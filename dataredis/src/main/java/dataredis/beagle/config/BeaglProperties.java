@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author Nanaan
- * @Description 动态绑定，用于读取比格创造术
+ * @Description 动态绑定，用于操作队列
  */
 @Component
 @Data

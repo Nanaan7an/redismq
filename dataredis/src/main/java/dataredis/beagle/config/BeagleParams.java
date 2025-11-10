@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class Beagle {
+public class BeagleParams {
     //创造出来的小比都有自己的名字
     private String name;
 }
